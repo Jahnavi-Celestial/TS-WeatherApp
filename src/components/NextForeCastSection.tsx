@@ -1,6 +1,7 @@
 import { useState } from "react";
 import DataDivComp from "./DataDivComp";
 import DateBtn from "./DateBtn";
+import { Box, Typography } from '@mui/material';
 
 interface NextProps<T> {
   forecast: T | null;
@@ -46,24 +47,30 @@ const NextForeCastSection = ({ forecast }: NextProps<any>) => {
   }
 
   return (
-    <div id="nextForecastDiv">
-      <h1 id="heading-forecast">Next 5 Days</h1>
-      <div id="buttonsDiv">
-        <div
+    <Box id="nextForecastDiv">
+      <Typography variant="h4" component="h1" sx={{paddingBottom: "30px", fontWeight: "400"}}>
+        Next 5 days
+      </Typography>
+
+      <Box id="buttonsDiv">
+        <Box
           id="btnDiv1"
-          className={`light-div btns ${selectedDate === null ? "active" : ""}`}
+          className={`light-div ${selectedDate === null ? "active" : ""}`}
           onClick={() => setSelectedDate(null)}
+          sx={{ cursor: 'pointer' }}
         >
           All Days
-        </div>
+        </Box>
+        
         {dateButtons}
-      </div>
-      <div id="dataDiv">
+      </Box>
+
+      <Box id="dataDiv">
         {
-            (selectedDate && !data) ? <></> : components
+          (selectedDate && !data) ? <></> : components
         }
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

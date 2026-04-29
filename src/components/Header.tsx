@@ -1,5 +1,12 @@
 import { useState } from "react";
 
+import { Box, Typography, TextField, Button } from '@mui/material';
+import CloudIcon from '@mui/icons-material/Cloud';
+import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
+import Brightness4Icon from '@mui/icons-material/Brightness4'; // Moon
+import Brightness7Icon from '@mui/icons-material/Brightness7'; // Sun
+import GitHubIcon from '@mui/icons-material/GitHub';
+
 interface HeaderProps {
   city: string;
   setCity: (value: string) => void;
@@ -10,20 +17,9 @@ const Header = ({city,setCity,getForecast}: HeaderProps) => {
   const [isLight, setIsLight] = useState<boolean>(true);
 
   function handleTheme():void {
-    document.body.classList.toggle("light");
-    document.body.classList.toggle("dark");
-
-    if (isLight) {
-      document.querySelectorAll(".light-div").forEach((el) => {
-        el.classList.replace("light-div", "dark-div");
-      });
-    } else {
-      document.querySelectorAll(".dark-div").forEach((el) => {
-        el.classList.replace("dark-div", "light-div");
-      });
-    }
-
-    setIsLight((prev) => !prev);
+    const newMode = !isLight;
+    document.body.className = newMode ? "light" : "dark";
+    setIsLight(newMode);
   }
 
   function handleGit():void {
@@ -42,41 +38,52 @@ const Header = ({city,setCity,getForecast}: HeaderProps) => {
   }
 
   return (
-    <div id="header">
-      <div id="logo1" className="light-div">
-        <h1>
-          <i className="fa-solid fa-cloud"></i>
+    <Box id="header" sx={{ display: 'flex', alignItems: 'center', width: "100%", height: "auto", padding: "50px 80px", justifyContent: "space-between" }}>
+      
+      <Box className="light-div" sx={{ display: 'flex', alignItems: 'center', padding: "18px" }}>
+        <CloudIcon sx={{ mr: 1 }} />
+        <Typography variant="h4" component="h1" sx={{fontSize: "20px", fontWeight: "50"}}>
           Weather
-        </h1>
-      </div>
-      <div id="input-div">
-        <input
-          type="text"
-          id="input-box"
-          className="light-div"
+        </Typography>
+      </Box>
+
+      <Box sx={{minWidth: "40%", textAlign: "center"}} className="light-div">
+        <TextField
+          sx={{minWidth: "100%", border: "none", fontSize: "1.5rem"}}
           placeholder="Ankara"
+          variant="outlined"
           value={city}
           onChange={handleInput}
           onKeyDown={handleKeyDown}
-        ></input>
-      </div>
-      <div id="locationIcon" className="btn light-div" >
-        <i
-          className="fa-solid fa-location-crosshairs"
-          style={{ fontSize: "25px" }}
-        ></i>
-      </div>
-      <div id="theme" className="btn light-div" onClick={handleTheme}>
-        {isLight ? (
-          <i className="fa-regular fa-moon" style={{ fontSize: "25px" }}></i>
-        ) : (
-          <i className="fa-solid fa-sun" style={{ fontSize: "25px" }}></i>
-        )}
-      </div>
-      <div id="git" className="btn" onClick={handleGit}>
+        />
+      </Box>
+
+      <Box 
+        sx={{textAlign: "center", padding: "15px", borderRadius: "5px", cursor: "pointer"}}
+        className="light-div"
+      >
+        <LocationSearchingIcon sx={{ fontSize: "25px" }} />
+      </Box>
+
+      <Box 
+        sx={{textAlign: "center", padding: "15px", borderRadius: "5px", cursor: "pointer"}}
+        className="light-div" 
+        onClick={handleTheme}
+      >
+        {isLight ? <Brightness4Icon sx={{ fontSize: "25px" }} /> : <Brightness7Icon sx={{ fontSize: "25px" }} />}
+      </Box>
+
+      <Button 
+        id="git"
+        sx={{textAlign: "center",  padding: "15px", borderRadius: "5px", cursor: "pointer", backgroundColor: "black", color: "white", fontSize: "1rem"}}
+        variant="contained"
+        startIcon={<GitHubIcon />}
+        onClick={handleGit}
+      >
         Support Project
-      </div>
-    </div>
+      </Button>
+
+    </Box>
   );
 };
 

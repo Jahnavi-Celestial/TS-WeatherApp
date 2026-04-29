@@ -1,4 +1,5 @@
 import WeatherInfoCard from "./WeatherInfoCard";
+import { Box, Typography, Divider } from '@mui/material';
 
 interface HeroProps<T>{
   forecast: T | null;
@@ -74,79 +75,79 @@ const Hero = ({ forecast }: HeroProps<any>) => {
   });
 
   return (
-    <div id="hero">
-      <h1 id="heading-home">Today Overview</h1>
-      <div id="hero-div">
-        <div id="hDiv1" className="light-div">
-          <i
-            className="fa-solid fa-cloud-moon"
-            style={{ fontSize: "50px" }}
-          ></i>
-          <h2 className="temp">
+    <Box id="hero" sx={{width: "100%", padding: "50px 90px"}}>
+      <Typography variant="h4" component="h1" sx={{paddingBottom: "30px", fontWeight: "400"}}>
+        Today Overview
+      </Typography>
+
+      <Box id="hero-div" sx={{width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px"}}>
+        
+        <Box id="hDiv1" className="light-div" sx={{width: "25%", minHeight: "418px", padding: "40px", border: "1px solid black", display: "flex", flexDirection: "column", justifyContent: "space-around", fontSize: "large"}}>
+
+          <i className="fa-solid fa-cloud-moon" style={{ fontSize: "50px" }}></i>
+          
+          <Typography variant="h2" component="h2">
             {current ? Math.round(current?.main.temp) : "32.5"}°C
-          </h2>
-          <p className="weather">
+          </Typography>
+
+          <Typography variant="body1">
             {current ? current.weather[0].main : "Clouds"}
-          </p>
-          <hr />
-          <div className="location">
+          </Typography>
+
+          <Divider sx={{ my: 1, borderColor: 'inherit' }} />
+
+          <Box sx={{display: "flex", alignItems: "center", gap: "15px"}}>
             <span>
-              <i
-                className="fa-solid fa-location-dot"
-                style={{ fontSize: "22px" }}
-              ></i>
+              <i className="fa-solid fa-location-dot" style={{ fontSize: "22px" }}></i>
             </span>
-            <p className="city">{data?.city ? `${data.city.name}` : "Delhi"}</p>
-          </div>
-          <div className="calender">
+            <Typography component="p" className="city">
+              {data?.city ? `${data.city.name}` : "Delhi"}
+            </Typography>
+          </Box>
+
+          <Box sx={{display: "flex", alignItems: "center", gap: "15px"}}>
             <span>
-              <i
-                className="fa-solid fa-calendar-days"
-                style={{ fontSize: "22px" }}
-              ></i>
+              <i className="fa-solid fa-calendar-days" style={{ fontSize: "22px" }}></i>
             </span>
-            <p>
-              <span className="date">
-                {day} {month}
-              </span>{" "}
+            <Typography component="p">
+              <span className="date">{day} {month}</span>
+              <br></br>
               <span className="day">{weekday}</span>
-            </p>
-          </div>
-        </div>
-        <div id="hDiv2">
+            </Typography>
+          </Box>
+        </Box>
+
+        
+        <Box id="hDiv2" sx={{width: "50%", minHeight: "418px", height: "auto", display: "grid", gridTemplateColumns: "repeat(2, auto)",gap: "10px"}}>
           {weatherCards.map((card) => (
             <WeatherInfoCard key={card.id} {...card} />
           ))}
-        </div>
-        <div id="hDiv3" className="light-div">
+        </Box>
+
+        <Box id="hDiv3" className="light-div" sx={{width: "25%", minHeight: "400px", padding: "10px"}}>
           {completeDayData.map((dayDate, i) => {
-            const item = forecast?.list?.[i]; 
-
-            const day = dayDate.toLocaleDateString("en-US", {
-              weekday: "long",
-            });
-
+            const item = forecast?.list?.[i];
+            const dayName = dayDate.toLocaleDateString("en-US", { weekday: "long" });
             const time = dayDate.toLocaleTimeString("en-US", {
               hour: "2-digit",
               minute: "2-digit",
               hour12: false,
             });
-
             const temp = item ? `${Math.round(item.main.temp)}°C` : "32°C";
 
             return (
-              <div className="completeDayInfo" key={i}>
-                <div className="info">
-                  <div>{day}</div>
-                  <div>{time}</div>
-                </div>
-                <div>{temp}</div>
-              </div>
+              <Box key={i} sx={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px"}}>
+                <Box className="info">
+                  <Box component="div">{dayName}</Box>
+                  <Box component="div">{time}</Box>
+                </Box>
+                <Box component="div">{temp}</Box>
+              </Box>
             );
           })}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

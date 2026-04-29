@@ -1,3 +1,5 @@
+import { Box, Typography } from '@mui/material';
+
 interface DataDivCompProps {
   date: Date;
   item: any;
@@ -22,20 +24,28 @@ const DataDivComp = ({ date, item }: DataDivCompProps) => {
   const weather = item ? item.weather[0].main : "cloud";
 
   return (
-    <div className="curDiv light-div">
-      <div>
-        <p>{formattedDate} {day}</p>
-        <h4>{time}</h4>
-      </div>
+    <Box className="curDiv light-div" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: "10px"}}>
+      <Box>
+        <Typography variant="body2" component="p">
+          {formattedDate} {day}
+        </Typography>
+        <Typography variant="h6" component="h4">
+          {time}
+        </Typography>
+      </Box>
 
-      <div className="right-data">
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <i className="fa-solid fa-cloud-moon" style={{ fontSize: "25px" }}></i>
-        <div>
-          <h4>{temp}</h4>
-          <p>{weather}</p>
-        </div>
-      </div>
-    </div>
+        <Box>
+          <Typography variant="h6" component="h4">
+            {temp}
+          </Typography>
+          <Typography variant="body2" component="p">
+            {weather}
+          </Typography>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

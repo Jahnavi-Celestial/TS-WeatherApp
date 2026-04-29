@@ -1,3 +1,4 @@
+import { Box, Typography } from '@mui/material';
 import { useEffect } from "react";
 
 interface HiddenDivProps {
@@ -20,7 +21,7 @@ const HiddenDiv = ({ show, setShowError }: HiddenDivProps) => {
   }
 
   return (
-    <div
+    <Box
       id="error-div"
       className="light-div"
       style={{
@@ -28,11 +29,20 @@ const HiddenDiv = ({ show, setShowError }: HiddenDivProps) => {
         pointerEvents: show ? "auto" : "none",
       }}
     >
-      <p>Something went wrong. Please try again!</p>
-      <p id="closeBtn" onClick={handleClose}>
+    
+      <Typography variant="body1" component="p">
+        Something went wrong. Please try again!
+      </Typography>
+
+      <Typography
+        id="closeBtn"
+        component="p"
+        onClick={handleClose}
+        sx={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+      >
         <i className="fa-solid fa-x" style={{ fontSize: "25px" }}></i>
-      </p>
-    </div>
+      </Typography>
+    </Box>
   );
 };
 

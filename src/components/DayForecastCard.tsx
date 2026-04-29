@@ -1,3 +1,5 @@
+import { Box } from "@mui/material";
+
 interface DayForecastCardProps {
   day: string;
   time: string;
@@ -7,13 +9,13 @@ interface DayForecastCardProps {
 
 const DayForecastCard = ({ day, time, temp, index }: DayForecastCardProps) => {
   return (
-    <div className="completeDayInfo">
-      <div className="info">
-        <div id={`day-${index}`}>{day}</div>
-        <div id={`date-${index}`}>{time}</div>
-      </div>
-      <div id={`curTemp-${index}`}>{temp}</div>
-    </div>
+    <Box>
+      <Box>
+        <Box id={`day-${index}`}>{day}</Box>
+        <Box id={`date-${index}`}>{time}</Box>
+      </Box>
+      <Box id={`curTemp-${index}`}>{temp}</Box>
+    </Box>
   );
 };
 

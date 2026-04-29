@@ -1,3 +1,5 @@
+import { Box } from '@mui/material';
+
 interface DateBtnProps {
   index: number;
   date: Date;
@@ -16,15 +18,15 @@ const DateBtn = ({ index, date, selectedDate, onClick}: DateBtnProps) => {
   const dateKey = date.toISOString().split("T")[0];
 
   return (
-    <div
+    <Box
       id={`btnDiv${index}`}
-      className={`light-div btns ${
-        selectedDate === dateKey ? "active" : ""
-      }`}
+      className={`light-div btns ${selectedDate === dateKey ? "active" : ""}`}
       onClick={() => onClick(dateKey)}
     >
-      <div>{formattedDate} {day}</div>
-    </div>
+      <Box component="div">
+        {formattedDate} {day}
+      </Box>
+    </Box>
   );
 };
 
